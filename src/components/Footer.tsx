@@ -13,15 +13,17 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="space-y-2">
             <p className="font-semibold text-white">Explore</p>
-            <Link href="/#story" className="block hover:underline">Our story</Link>
             <Link href="/#shop" className="block hover:underline">Shop</Link>
-            <Link href="/#learn" className="block hover:underline">Learn</Link>
+            <Link href="/about" className="block hover:underline">About</Link>
+            <Link href="/shipping" className="block hover:underline">Shipping</Link>
+            <Link href="/contact" className="block hover:underline">Contact</Link>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold text-white">Studio</p>
-            <p>Victoria, BC</p>
-            <p>Est. Edmonton, AB</p>
-            <Link href="/contact" className="block hover:underline">Contact</Link>
+            <p className="font-semibold text-white">Account</p>
+            <Link href="/login" className="block hover:underline">Sign in</Link>
+            <Link href="/register" className="block hover:underline">Sign up</Link>
+            <Link href="/cart" className="block hover:underline">Cart</Link>
+            <Link href="/dashboard" className="block hover:underline">Dashboard</Link>
           </div>
         </div>
       </div>
