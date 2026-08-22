@@ -6,7 +6,7 @@ import { CartProvider } from '@/lib/cart'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Henna Art Canada | Hennart',
+  title: 'Henna Art Canada | Hennaart',
   description: 'Quality organic henna, body art supplies, and natural hair dye. Est. 2007.',
 }
 
