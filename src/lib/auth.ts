@@ -78,6 +78,20 @@ export function clearSession() {
   localStorage.removeItem(SESSION_KEY)
 }
 
+async function api<T>(path: string, body: unknown): Promise<T | null> {
+  try {
+    const res = await fetch(path, {
+      method: path.includes('profile') ? 'PATCH' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    const data = await res.json()
+    return data as T
+  } catch {
+    return null
+  }
+}
+
 export async function registerUser(input: {
   name: string
   email: string
@@ -94,6 +108,16 @@ export async function registerUser(input: {
   if (!email || !input.password || input.password.length < 6) {
     return { ok: false, error: 'Password must be at least 6 characters.' }
   }
+
+  const remote = await api<{ ok: boolean; user?: SessionUser; error?: string }>('/api/auth/register', input)
+  if (remote?.ok && remote.user) {
+    setSession(remote.user)
+    return { ok: true, user: remote.user }
+  }
+  if (remote && remote.ok === false && remote.error && !remote.error.includes('DATABASE')) {
+    return { ok: false, error: remote.error }
+  }
+
   const users = getUsers()
   if (users.some((u) => u.email === email)) {
     return { ok: false, error: 'An account with this email already exists.' }
@@ -123,9 +147,15 @@ export async function loginUser(
   email: string,
   password: string
 ): Promise<{ ok: true; user: SessionUser } | { ok: false; error: string }> {
+  const remote = await api<{ ok: boolean; user?: SessionUser; error?: string }>('/api/auth/login', { email, password })
+  if (remote?.ok && remote.user) {
+    setSession(remote.user)
+    return { ok: true, user: remote.user }
+  }
+
   const users = getUsers()
   const found = users.find((u) => u.email === email.trim().toLowerCase())
-  if (!found) return { ok: false, error: 'Invalid email or password.' }
+  if (!found) return { ok: false, error: remote?.error || 'Invalid email or password.' }
   const hash = await hashPassword(password)
   if (hash !== found.passwordHash) return { ok: false, error: 'Invalid email or password.' }
   setSession(found)
@@ -149,6 +179,18 @@ export async function updateUser(
     >
   > & { password?: string }
 ): Promise<{ ok: true; user: SessionUser } | { ok: false; error: string }> {
+  const remote = await api<{ ok: boolean; user?: SessionUser; error?: string }>('/api/auth/profile', {
+    id: userId,
+    ...patch,
+  })
+  if (remote?.ok && remote.user) {
+    setSession(remote.user)
+    return { ok: true, user: remote.user }
+  }
+  if (remote && remote.ok === false && remote.error && !String(remote.error).includes('Could not')) {
+    return { ok: false, error: remote.error }
+  }
+
   const users = getUsers()
   const idx = users.findIndex((u) => u.id === userId)
   if (idx < 0) return { ok: false, error: 'User not found. Please sign in again.' }
@@ -183,13 +225,15 @@ export async function updateUser(
 export async function requestPasswordReset(
   email: string
 ): Promise<{ ok: true; token?: string } | { ok: false; error: string }> {
+  const remote = await api<{ ok: boolean; token?: string; error?: string }>('/api/auth/forgot', { email })
+  if (remote?.ok) return { ok: true, token: remote.token }
+
   const users = getUsers()
   const idx = users.findIndex((u) => u.email === email.trim().toLowerCase())
-  // Always return success message to avoid email enumeration; include token only in this demo app
   if (idx < 0) return { ok: true }
   const token = Math.random().toString(36).slice(2) + Date.now().toString(36)
   users[idx].resetToken = token
-  users[idx].resetExpires = Date.now() + 1000 * 60 * 60 // 1 hour
+  users[idx].resetExpires = Date.now() + 1000 * 60 * 60
   saveUsers(users)
   return { ok: true, token }
 }
@@ -201,6 +245,10 @@ export async function resetPassword(
   if (newPassword.length < 6) {
     return { ok: false, error: 'Password must be at least 6 characters.' }
   }
+  const remote = await api<{ ok: boolean; error?: string }>('/api/auth/reset', { token, password: newPassword })
+  if (remote?.ok) return { ok: true }
+  if (remote?.error) return { ok: false, error: remote.error }
+
   const users = getUsers()
   const idx = users.findIndex(
     (u) => u.resetToken === token && u.resetExpires && u.resetExpires > Date.now()
