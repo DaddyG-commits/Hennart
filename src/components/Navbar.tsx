@@ -11,7 +11,7 @@ export default function Navbar() {
   const { count } = useCart()
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#faf6f1]/95 backdrop-blur border-b border-stone-200">
+    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         <Link href="/" className="font-bold text-xl tracking-tight text-henna-800 shrink-0">
           Hennart
@@ -34,9 +34,9 @@ export default function Navbar() {
             </button>
             {shopOpen && (
               <div className="absolute left-0 top-full pt-2">
-                <div className="bg-white border border-stone-200 rounded-xl shadow-lg min-w-[11rem] py-2">
-                  <Link href="/#shop" className="block px-4 py-2 hover:bg-henna-50" onClick={() => setShopOpen(false)}>
-                    Products
+                <div className="bg-white border border-stone-200 rounded-xl shadow-lg min-w-[12rem] py-2">
+                  <Link href="/shop" className="block px-4 py-2 hover:bg-henna-50" onClick={() => setShopOpen(false)}>
+                    Shop Now — Catalog
                   </Link>
                   <Link href="/gift-card" className="block px-4 py-2 hover:bg-henna-50" onClick={() => setShopOpen(false)}>
                     Gift Card
@@ -45,6 +45,9 @@ export default function Navbar() {
               </div>
             )}
           </div>
+          <Link href="/shop" className="border border-stone-800 rounded-lg px-3 py-1.5 hover:bg-stone-900 hover:text-white">
+            Shop Now
+          </Link>
           <Link href="/about" className="hover:text-henna-800">About</Link>
           <Link href="/blog" className="hover:text-henna-800">Blog</Link>
           <Link href="/shipping" className="hover:text-henna-800">Shipping</Link>
@@ -64,6 +67,9 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
+          <Link href="/shop" className="text-xs font-semibold border border-stone-800 rounded-lg px-2 py-1">
+            Shop Now
+          </Link>
           <Link href="/cart" className="relative p-2" aria-label="Cart">
             <ShoppingCart className="w-6 h-6 text-stone-800" />
             {count > 0 && (
@@ -80,7 +86,7 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden px-4 pb-5 flex flex-col gap-4 text-stone-800 font-medium border-t border-stone-200 pt-3">
-          <Link href="/#shop" onClick={() => setOpen(false)}>Shop products</Link>
+          <Link href="/shop" onClick={() => setOpen(false)}>Shop Now — Catalog</Link>
           <Link href="/gift-card" onClick={() => setOpen(false)}>Gift Card</Link>
           <Link href="/about" onClick={() => setOpen(false)}>About</Link>
           <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
