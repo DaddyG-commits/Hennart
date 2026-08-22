@@ -5,44 +5,55 @@ import ProductCard from '@/components/ProductCard'
 import { products } from '@/lib/products'
 
 export default function Home() {
+  const featured = products.slice(0, 3)
+
   return (
     <div className="min-h-screen flex flex-col">
+      <div className="bg-[#8fbf3f] text-white text-center text-sm sm:text-base font-semibold px-4 py-3 leading-snug">
+        New Owner, New Location! We are now in Victoria, BC!
+      </div>
       <Navbar />
 
       <main className="flex-1 max-w-6xl mx-auto w-full px-5 py-10 space-y-16">
-        <section className="space-y-5 max-w-3xl">
-          <p className="text-sm font-semibold tracking-wide text-henna-700 uppercase">Victoria, BC · Est. 2007</p>
-          <h1 className="text-4xl sm:text-5xl font-bold leading-tight text-stone-900">
-            Share the henna love.
+        <section className="text-center max-w-2xl mx-auto space-y-5">
+          <p className="text-sm tracking-wide text-stone-500">Our mission</p>
+          <h1 className="text-2xl sm:text-3xl font-normal leading-snug text-stone-900">
+            Provide organic, locally sourced ingredients and supplies for fresh henna body art, natural hair dye, and jagua art.
           </h1>
-          <p className="text-lg text-stone-700 leading-relaxed">
-            Quality organic henna, body art supplies, and natural hair dye — so no one has to settle for cheap, chemical-laden products.
+          <p className="text-xl text-stone-800">Products | Services | Wholesale</p>
+          <Link
+            href="/shop"
+            className="inline-block border-2 border-stone-800 rounded-xl px-8 py-3 font-semibold hover:bg-stone-900 hover:text-white transition"
+          >
+            Shop Now
+          </Link>
+        </section>
+
+        <section className="max-w-2xl mx-auto space-y-3 text-center sm:text-left">
+          <h2 className="text-2xl font-bold">Based in Victoria, BC</h2>
+          <p className="text-stone-700 leading-relaxed">
+            Order online or via email, shipped with Canada Post, or pick up in the Victoria area!
           </p>
-          <p className="text-stone-700">
-            Order online or via email. Shipped with Canada Post, or pick up in the Victoria area.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a href="#shop" className="bg-henna-800 text-white px-6 py-3 rounded-xl font-semibold text-center hover:bg-henna-900">
-              Shop supplies
+          <p className="text-stone-700 leading-relaxed">
+            For private henna appointments email{' '}
+            <a href="mailto:kareliasunflower@hotmail.com" className="text-henna-800 font-semibold underline">
+              kareliasunflower@hotmail.com
             </a>
-            <Link href="/about" className="border border-stone-400 px-6 py-3 rounded-xl font-semibold text-center hover:bg-white">
-              Our story
-            </Link>
-          </div>
+          </p>
         </section>
 
         <section id="shop" className="space-y-6">
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
-              <h2 className="text-3xl font-bold">Shop</h2>
-              <p className="text-stone-600 mt-1 text-sm">Placeholder products — real photos and prices coming next.</p>
+              <h2 className="text-3xl font-bold">Featured</h2>
+              <p className="text-stone-600 mt-1 text-sm">Full catalog on the shop page. Real photos and prices next.</p>
             </div>
-            <Link href="/cart" className="text-sm font-semibold text-henna-800 hover:underline">
-              View cart →
+            <Link href="/shop" className="text-sm font-semibold text-henna-800 hover:underline">
+              View all products →
             </Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {products.map((p) => (
+            {featured.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
@@ -56,24 +67,6 @@ export default function Home() {
           <Link href="/about" className="inline-block font-semibold text-henna-800 hover:underline">
             Read the full story →
           </Link>
-        </section>
-
-        <section className="bg-white border border-stone-200 rounded-3xl p-7 space-y-3 max-w-3xl">
-          <h2 className="text-2xl font-bold">Visit, ship, or book</h2>
-          <p className="text-stone-700 leading-relaxed">Based in Victoria, BC. Order online or by email. Canada Post shipping across Canada, or local pickup in the Victoria area.</p>
-          <p className="text-stone-700 leading-relaxed">
-            For private henna appointments, email{' '}
-            <a href="mailto:kareliasunflower@hotmail.com" className="text-henna-800 font-semibold underline">
-              kareliasunflower@hotmail.com
-            </a>
-          </p>
-        </section>
-
-        <section id="learn" className="bg-white border border-stone-200 rounded-3xl p-7 space-y-3 max-w-3xl">
-          <h2 className="text-2xl font-bold">Safe henna. Shared knowledge.</h2>
-          <p className="text-stone-700 leading-relaxed">
-            Learn how to use safe henna for body art, natural hair colour, and even eyebrows — without harsh chemicals.
-          </p>
         </section>
       </main>
 
