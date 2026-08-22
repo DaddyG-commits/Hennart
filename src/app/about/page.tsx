@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
@@ -44,15 +43,12 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Henna design artwork */}
-        <figure className="rounded-2xl overflow-hidden border border-stone-200 bg-[#e8f0f8]">
-          <Image
-            src="/images/henna-design.jpg"
+        <figure className="rounded-2xl overflow-hidden border border-stone-200 bg-white">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/Image-public.png"
             alt="Intricate traditional henna design illustration"
-            width={900}
-            height={868}
             className="w-full h-auto object-contain"
-            priority
           />
         </figure>
 
@@ -79,13 +75,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Henna powder photo */}
         <figure className="rounded-2xl overflow-hidden border border-stone-200 bg-white">
-          <Image
-            src="/images/henna-powder.jpg"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/public-image.png"
             alt="Finely sifted natural henna powder on a brass pedestal"
-            width={712}
-            height={900}
             className="w-full h-auto object-contain mx-auto max-h-[28rem]"
           />
           <figcaption className="text-center text-xs text-stone-500 py-3 px-4">
@@ -103,7 +97,7 @@ export default function AboutPage() {
         </section>
 
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
-          <Link href="/#shop" className="bg-henna-800 text-white px-6 py-3 rounded-xl font-semibold text-center hover:bg-henna-900">
+          <Link href="/shop" className="bg-henna-800 text-white px-6 py-3 rounded-xl font-semibold text-center hover:bg-henna-900">
             Shop supplies
           </Link>
           <Link href="/blog" className="border border-stone-400 px-6 py-3 rounded-xl font-semibold text-center hover:bg-white">
