@@ -8,23 +8,30 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  orders    Order[]
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  password     String
+  phone        String?
+  phoneCountry String?
+  address      String?
+  city         String?
+  region       String?
+  postalCode   String?
+  country      String?
+  createdAt    DateTime @default(now())
+  orders       Order[]
 }
 
 model Product {
-  id          String   @id @default(cuid())
+  id          String      @id @default(cuid())
   name        String
   description String
   price       Float
   image       String?
   category    String
-  inStock     Boolean  @default(true)
-  createdAt   DateTime @default(now())
+  inStock     Boolean     @default(true)
+  createdAt   DateTime    @default(now())
   orderItems  OrderItem[]
 }
 
