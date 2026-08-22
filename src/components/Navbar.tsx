@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, ShoppingCart, User } from 'lucide-react'
+import { Menu, X, ShoppingCart, User, ChevronDown } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [shopOpen, setShopOpen] = useState(false)
   const { count } = useCart()
 
   return (
@@ -18,7 +19,32 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium text-stone-800">
-          <Link href="/#shop" className="hover:text-henna-800">Shop</Link>
+          <div
+            className="relative"
+            onMouseEnter={() => setShopOpen(true)}
+            onMouseLeave={() => setShopOpen(false)}
+          >
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 hover:text-henna-800"
+              onClick={() => setShopOpen((v) => !v)}
+              aria-expanded={shopOpen}
+            >
+              Shop <ChevronDown className="w-4 h-4" />
+            </button>
+            {shopOpen && (
+              <div className="absolute left-0 top-full pt-2">
+                <div className="bg-white border border-stone-200 rounded-xl shadow-lg min-w-[11rem] py-2">
+                  <Link href="/#shop" className="block px-4 py-2 hover:bg-henna-50" onClick={() => setShopOpen(false)}>
+                    Products
+                  </Link>
+                  <Link href="/gift-card" className="block px-4 py-2 hover:bg-henna-50" onClick={() => setShopOpen(false)}>
+                    Gift Card
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
           <Link href="/about" className="hover:text-henna-800">About</Link>
           <Link href="/blog" className="hover:text-henna-800">Blog</Link>
           <Link href="/shipping" className="hover:text-henna-800">Shipping</Link>
@@ -54,7 +80,8 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden px-4 pb-5 flex flex-col gap-4 text-stone-800 font-medium border-t border-stone-200 pt-3">
-          <Link href="/#shop" onClick={() => setOpen(false)}>Shop</Link>
+          <Link href="/#shop" onClick={() => setOpen(false)}>Shop products</Link>
+          <Link href="/gift-card" onClick={() => setOpen(false)}>Gift Card</Link>
           <Link href="/about" onClick={() => setOpen(false)}>About</Link>
           <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
           <Link href="/shipping" onClick={() => setOpen(false)}>Shipping & tracking</Link>
