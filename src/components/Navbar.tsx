@@ -17,9 +17,10 @@ export default function Navbar() {
           <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-henna-700">Henna Art Canada</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-stone-800">
+        <div className="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium text-stone-800">
           <Link href="/#shop" className="hover:text-henna-800">Shop</Link>
           <Link href="/about" className="hover:text-henna-800">About</Link>
+          <Link href="/blog" className="hover:text-henna-800">Blog</Link>
           <Link href="/shipping" className="hover:text-henna-800">Shipping</Link>
           <Link href="/contact" className="hover:text-henna-800">Contact</Link>
           <Link href="/login" className="hover:text-henna-800 inline-flex items-center gap-1">
@@ -55,6 +56,7 @@ export default function Navbar() {
         <div className="md:hidden px-4 pb-5 flex flex-col gap-4 text-stone-800 font-medium border-t border-stone-200 pt-3">
           <Link href="/#shop" onClick={() => setOpen(false)}>Shop</Link>
           <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
           <Link href="/shipping" onClick={() => setOpen(false)}>Shipping & tracking</Link>
           <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
           <Link href="/login" onClick={() => setOpen(false)}>Login</Link>
