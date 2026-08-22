@@ -14,6 +14,7 @@ export default function Footer() {
           <div className="space-y-2">
             <p className="font-semibold text-white">Explore</p>
             <Link href="/#shop" className="block hover:underline">Shop</Link>
+            <Link href="/gift-card" className="block hover:underline">Gift Card</Link>
             <Link href="/about" className="block hover:underline">About</Link>
             <Link href="/blog" className="block hover:underline">Blog</Link>
             <Link href="/shipping" className="block hover:underline">Shipping</Link>
