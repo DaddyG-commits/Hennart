@@ -13,12 +13,12 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-        <Link href="/" className="flex items-center gap-2 shrink-0 min-w-0">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 min-w-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="Henna Art logo"
-            className="w-11 h-11 rounded-full object-cover object-[center_18%] bg-white border border-stone-200"
+            className="w-16 h-16 sm:w-[4.75rem] sm:h-[4.75rem] rounded-full object-cover object-[center_18%] bg-white border border-stone-200 shrink-0"
             onError={(e) => {
               e.currentTarget.src = '/products/indo-arabic-ebook.jpg'
             }}
