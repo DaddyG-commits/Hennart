@@ -24,7 +24,7 @@ export const products: Product[] = [
     price: 8,
     priceMax: 35,
     category: 'Cones',
-    image: '/products/jamila-cones.jpg',
+    image: '/products/gentle-cones.jpg',
   },
   {
     id: 'gentle-cones',
