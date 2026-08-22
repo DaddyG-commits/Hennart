@@ -15,6 +15,7 @@ export default function Footer() {
             <p className="font-semibold text-white">Explore</p>
             <Link href="/#shop" className="block hover:underline">Shop</Link>
             <Link href="/about" className="block hover:underline">About</Link>
+            <Link href="/blog" className="block hover:underline">Blog</Link>
             <Link href="/shipping" className="block hover:underline">Shipping</Link>
             <Link href="/contact" className="block hover:underline">Contact</Link>
           </div>
