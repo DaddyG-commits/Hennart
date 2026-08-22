@@ -15,7 +15,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         <Link href="/" className="font-bold text-xl tracking-tight text-henna-800 shrink-0">
           <span className="inline-flex items-center gap-1.5">
-            Hennart <span className="text-[1.05em] leading-none" aria-hidden>🍁</span>
+            Hennaart <span className="text-[1.05em] leading-none" aria-hidden>🍁</span>
           </span>
           <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-henna-700">
             Henna Art Canada
