@@ -13,12 +13,23 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-        <Link href="/" className="font-bold text-xl tracking-tight text-henna-800 shrink-0">
-          <span className="inline-flex items-center gap-1.5">
-            Hennaart <span className="text-[1.05em] leading-none" aria-hidden>🍁</span>
-          </span>
-          <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-henna-700">
-            Henna Art Canada
+        <Link href="/" className="flex items-center gap-2 shrink-0 min-w-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="Henna Art logo"
+            className="w-11 h-11 rounded-full object-cover object-[center_18%] bg-white border border-stone-200"
+            onError={(e) => {
+              e.currentTarget.src = '/products/indo-arabic-ebook.jpg'
+            }}
+          />
+          <span className="font-bold text-xl tracking-tight text-henna-800">
+            <span className="inline-flex items-center gap-1.5">
+              Hennaart <span className="text-[1.05em] leading-none" aria-hidden>🍁</span>
+            </span>
+            <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-henna-700">
+              Henna Art Canada
+            </span>
           </span>
         </Link>
 
