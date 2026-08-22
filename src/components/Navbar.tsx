@@ -14,8 +14,12 @@ export default function Navbar() {
     <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         <Link href="/" className="font-bold text-xl tracking-tight text-henna-800 shrink-0">
-          Hennart
-          <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-henna-700">Henna Art Canada</span>
+          <span className="inline-flex items-center gap-1.5">
+            Hennart <span className="text-[1.05em] leading-none" aria-hidden>🍁</span>
+          </span>
+          <span className="block text-[10px] font-medium tracking-[0.2em] uppercase text-henna-700">
+            Henna Art Canada
+          </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium text-stone-800">
