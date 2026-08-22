@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-henna-900 text-henna-100 mt-16">
       <div className="max-w-6xl mx-auto px-5 py-12 grid gap-8 sm:grid-cols-3">
         <div>
-          <p className="font-bold text-lg text-white">Hennart</p>
+          <p className="font-bold text-lg text-white">Hennaart 🍁</p>
           <p className="text-sm mt-2 text-henna-100/80">
             Based in Victoria, BC. Quality organic ingredients and safe body art since 2007.
           </p>
