@@ -33,7 +33,6 @@ export default function Navbar() {
   }
 
   const initial = user?.name?.trim()?.charAt(0)?.toUpperCase() || 'U'
-  const isAccountArea = pathname?.startsWith('/dashboard')
 
   return (
     <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200">
@@ -44,9 +43,6 @@ export default function Navbar() {
             src="/logo.png"
             alt="Henna Art logo"
             className="w-16 h-16 sm:w-[4.75rem] sm:h-[4.75rem] rounded-full object-cover object-[center_18%] bg-white border border-stone-200 shrink-0"
-            onError={(e) => {
-              e.currentTarget.src = '/products/indo-arabic-ebook.jpg'
-            }}
           />
           <span className="font-bold text-xl tracking-tight text-henna-800">
             <span className="inline-flex items-center gap-1.5">
@@ -94,19 +90,9 @@ export default function Navbar() {
           <Link href="/contact" className="hover:text-henna-800">Contact</Link>
 
           {ready && user ? (
-            <>
-              {isAccountArea && (
-                <Link
-                  href="/dashboard"
-                  className="ha-back-btn"
-                >
-                  ← Dashboard
-                </Link>
-              )}
-              <Link href="/dashboard" className="hover:text-henna-800 inline-flex items-center gap-1">
-                <User className="w-4 h-4" /> Dashboard
-              </Link>
-            </>
+            <Link href="/dashboard" className="hover:text-henna-800 inline-flex items-center gap-1 font-semibold text-henna-800">
+              <User className="w-4 h-4" /> Dashboard
+            </Link>
           ) : ready ? (
             <Link href="/login" className="hover:text-henna-800 inline-flex items-center gap-1">
               <User className="w-4 h-4" /> Account

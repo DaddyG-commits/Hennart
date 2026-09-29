@@ -8,6 +8,32 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll progress (fluid) */
+.ha-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 200;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, #6f2d14, #c4a574);
+  pointer-events: none;
+}
+
+[data-fluid] {
+  will-change: opacity, transform;
+}
+
+[data-parallax] {
+  will-change: transform;
+}
+
 /* CryptoByt-style colorful back / dashboard pill */
 .ha-back-btn {
   display: inline-flex;
@@ -27,4 +53,14 @@
 
 .ha-back-btn:hover {
   background: #f3e8d8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-fluid] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
