@@ -100,11 +100,11 @@ export default function SettingsPage() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 max-w-lg mx-auto w-full px-5 py-10">
-        <div className="mb-5">
-          <Link href="/dashboard" className="text-sm text-henna-800 font-medium hover:underline">
+        <div className="mb-6">
+          <Link href="/dashboard" className="ha-back-btn">
             ← Back to dashboard
           </Link>
-          <h1 className="text-2xl font-bold mt-2">Account settings</h1>
+          <h1 className="text-2xl font-bold mt-4">Account settings</h1>
           <p className="text-sm text-stone-600 mt-1">Update your contact details or password.</p>
         </div>
 

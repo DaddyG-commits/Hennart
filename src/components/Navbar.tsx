@@ -1,14 +1,39 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, ShoppingCart, User, ChevronDown } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Menu, X, ShoppingCart, User, ChevronDown, LogOut } from 'lucide-react'
 import { useCart } from '@/lib/cart'
+import { clearSession, getSession, type SessionUser } from '@/lib/auth'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [shopOpen, setShopOpen] = useState(false)
+  const [user, setUser] = useState<SessionUser | null>(null)
+  const [ready, setReady] = useState(false)
   const { count } = useCart()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    setUser(getSession())
+    setReady(true)
+  }, [pathname])
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  const logout = () => {
+    clearSession()
+    setUser(null)
+    setOpen(false)
+    router.push('/login')
+  }
+
+  const initial = user?.name?.trim()?.charAt(0)?.toUpperCase() || 'U'
+  const isAccountArea = pathname?.startsWith('/dashboard')
 
   return (
     <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200">
@@ -67,9 +92,27 @@ export default function Navbar() {
           <Link href="/blog" className="hover:text-henna-800">Blog</Link>
           <Link href="/shipping" className="hover:text-henna-800">Shipping</Link>
           <Link href="/contact" className="hover:text-henna-800">Contact</Link>
-          <Link href="/login" className="hover:text-henna-800 inline-flex items-center gap-1">
-            <User className="w-4 h-4" /> Account
-          </Link>
+
+          {ready && user ? (
+            <>
+              {isAccountArea && (
+                <Link
+                  href="/dashboard"
+                  className="ha-back-btn"
+                >
+                  ← Dashboard
+                </Link>
+              )}
+              <Link href="/dashboard" className="hover:text-henna-800 inline-flex items-center gap-1">
+                <User className="w-4 h-4" /> Dashboard
+              </Link>
+            </>
+          ) : ready ? (
+            <Link href="/login" className="hover:text-henna-800 inline-flex items-center gap-1">
+              <User className="w-4 h-4" /> Account
+            </Link>
+          ) : null}
+
           <Link href="/cart" className="relative inline-flex items-center gap-1.5 bg-henna-800 text-white px-3 py-2 rounded-lg hover:bg-henna-900">
             <ShoppingCart className="w-4 h-4" />
             Cart
@@ -101,15 +144,60 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden px-4 pb-5 flex flex-col gap-4 text-stone-800 font-medium border-t border-stone-200 pt-3">
-          <Link href="/shop" onClick={() => setOpen(false)}>Shop Now — Catalog</Link>
-          <Link href="/gift-card" onClick={() => setOpen(false)}>Gift Card</Link>
-          <Link href="/about" onClick={() => setOpen(false)}>About</Link>
-          <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
-          <Link href="/shipping" onClick={() => setOpen(false)}>Shipping & tracking</Link>
-          <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
-          <Link href="/login" onClick={() => setOpen(false)}>Login</Link>
-          <Link href="/register" onClick={() => setOpen(false)}>Sign up</Link>
-          <Link href="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
+          {user ? (
+            <>
+              <p className="text-[10px] font-bold tracking-widest uppercase text-stone-500 m-0">Account</p>
+              <Link href="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
+              <Link href="/dashboard/settings" onClick={() => setOpen(false)}>Settings</Link>
+              <Link href="/shop" onClick={() => setOpen(false)}>Shop Now — Catalog</Link>
+              <Link href="/cart" onClick={() => setOpen(false)}>Cart</Link>
+              <Link href="/gift-card" onClick={() => setOpen(false)}>Gift Card</Link>
+              <Link href="/shipping" onClick={() => setOpen(false)}>Shipping & tracking</Link>
+              <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
+              <Link href="/" onClick={() => setOpen(false)}>Home</Link>
+
+              <div className="flex items-center gap-3 mt-1 p-3 rounded-2xl bg-stone-100 border border-stone-200">
+                <span className="w-9 h-9 rounded-full bg-henna-800 text-white font-bold text-sm grid place-items-center shrink-0">
+                  {initial}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold truncate m-0">{user.name}</p>
+                  <p className="text-xs text-stone-500 truncate m-0">{user.email}</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={logout}
+                className="w-full inline-flex items-center justify-center gap-2 border border-stone-300 rounded-full py-3 text-sm font-semibold hover:bg-stone-50"
+              >
+                <LogOut className="w-4 h-4" /> Sign out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/shop" onClick={() => setOpen(false)}>Shop Now — Catalog</Link>
+              <Link href="/gift-card" onClick={() => setOpen(false)}>Gift Card</Link>
+              <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+              <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
+              <Link href="/shipping" onClick={() => setOpen(false)}>Shipping & tracking</Link>
+              <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
+              {ready && (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="inline-flex items-center justify-center bg-henna-800 text-white rounded-xl py-3 font-semibold"
+                  >
+                    Login
+                  </Link>
+                  <Link href="/register" onClick={() => setOpen(false)} className="text-center">
+                    Sign up
+                  </Link>
+                </>
+              )}
+            </>
+          )}
         </div>
       )}
     </nav>

@@ -14,21 +14,45 @@ export default function Home() {
       </div>
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-5 py-10 space-y-16">
-        <section className="text-center max-w-2xl mx-auto space-y-5">
-          <p className="text-sm tracking-wide text-stone-500">Our mission</p>
-          <h1 className="text-2xl sm:text-3xl font-normal leading-snug text-stone-900">
-            Provide organic, locally sourced ingredients and supplies for fresh henna body art, natural hair dye, and jagua art.
-          </h1>
-          <p className="text-xl text-stone-800">Products | Services | Wholesale</p>
-          <Link
-            href="/shop"
-            className="inline-block border-2 border-stone-800 rounded-xl px-8 py-3 font-semibold hover:bg-stone-900 hover:text-white transition"
-          >
-            Shop Now
-          </Link>
-        </section>
+      {/* City background hero — logo stays in navbar; marketplace products unchanged below */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/public-image.png"
+            alt=""
+            className="w-full h-full object-cover object-center scale-105"
+            onError={(e) => {
+              e.currentTarget.src = '/images/Image-public.png'
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(250,246,241,0.55) 0%, rgba(250,246,241,0.82) 55%, #faf6f1 100%), linear-gradient(90deg, rgba(250,246,241,0.75) 0%, rgba(250,246,241,0.35) 50%, rgba(250,246,241,0.65) 100%)',
+            }}
+          />
+        </div>
 
+        <div className="relative z-10 max-w-6xl mx-auto w-full px-5 py-14 sm:py-20">
+          <div className="text-center max-w-2xl mx-auto space-y-5">
+            <p className="text-sm tracking-wide text-stone-600 font-medium">Our mission</p>
+            <h1 className="text-2xl sm:text-3xl font-normal leading-snug text-stone-900">
+              Provide organic, locally sourced ingredients and supplies for fresh henna body art, natural hair dye, and jagua art.
+            </h1>
+            <p className="text-xl text-stone-800">Products | Services | Wholesale</p>
+            <Link
+              href="/shop"
+              className="inline-block border-2 border-stone-800 rounded-xl px-8 py-3 font-semibold hover:bg-stone-900 hover:text-white transition bg-white/80 backdrop-blur-sm"
+            >
+              Shop Now
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <main className="flex-1 max-w-6xl mx-auto w-full px-5 py-10 space-y-16">
         <section className="max-w-2xl mx-auto space-y-3 text-center sm:text-left">
           <h2 className="text-2xl font-bold">Based in Victoria, BC</h2>
           <p className="text-stone-700 leading-relaxed">
