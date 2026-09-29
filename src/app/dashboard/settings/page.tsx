@@ -1,10 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import DashboardShell from '@/components/DashboardShell'
 import {
   getSession,
   updateUser,
@@ -49,7 +47,7 @@ export default function SettingsPage() {
   }, [router])
 
   const field =
-    'w-full border border-stone-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-henna-700/30'
+    'w-full border border-white/15 bg-[#1a100c] rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#c4a574]/40'
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -86,36 +84,25 @@ export default function SettingsPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 max-w-lg mx-auto w-full px-5 py-10">
-          <p className="text-sm text-stone-500">Loading…</p>
-        </main>
-        <Footer />
-      </div>
+      <DashboardShell title="Account settings">
+        <p className="text-sm text-stone-400">Loading…</p>
+      </DashboardShell>
     )
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1 max-w-lg mx-auto w-full px-5 py-10">
-        <div className="mb-6">
-          <Link href="/dashboard" className="ha-back-btn">
-            ← Back to dashboard
-          </Link>
-          <h1 className="text-2xl font-bold mt-4">Account settings</h1>
-          <p className="text-sm text-stone-600 mt-1">Update your contact details or password.</p>
-        </div>
+    <DashboardShell title="Account settings">
+      <div className="max-w-lg space-y-4">
+        <p className="text-sm text-stone-400">Update your contact details or password.</p>
 
-        <form onSubmit={save} className="bg-white border border-stone-200 rounded-2xl p-6 space-y-4">
+        <form onSubmit={save} className="bg-[#2a1c14] border border-white/10 rounded-2xl p-6 space-y-4">
           <div>
-            <label className="block text-xs font-semibold mb-1">Full name</label>
+            <label className="block text-xs font-semibold text-stone-400 mb-1">Full name</label>
             <input required value={name} onChange={(e) => setName(e.target.value)} className={field} />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold mb-1">Email</label>
+            <label className="block text-xs font-semibold text-stone-400 mb-1">Email</label>
             <input
               type="email"
               required
@@ -126,12 +113,12 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold mb-1">Phone (Canada or US)</label>
+            <label className="block text-xs font-semibold text-stone-400 mb-1">Phone (Canada or US)</label>
             <div className="flex gap-2">
               <select
                 value={phoneCountry}
                 onChange={(e) => setPhoneCountry(e.target.value as PhoneCountry)}
-                className="border border-stone-300 rounded-xl px-3 py-2.5 text-sm bg-white"
+                className="border border-white/15 rounded-xl px-3 py-2.5 text-sm bg-[#1a100c] text-white"
               >
                 <option value="CA">🇨🇦 CA +1</option>
                 <option value="US">🇺🇸 US +1</option>
@@ -147,17 +134,17 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold mb-1">Street address</label>
+            <label className="block text-xs font-semibold text-stone-400 mb-1">Street address</label>
             <input required value={address} onChange={(e) => setAddress(e.target.value)} className={field} />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold mb-1">City</label>
+              <label className="block text-xs font-semibold text-stone-400 mb-1">City</label>
               <input required value={city} onChange={(e) => setCity(e.target.value)} className={field} />
             </div>
             <div>
-              <label className="block text-xs font-semibold mb-1">
+              <label className="block text-xs font-semibold text-stone-400 mb-1">
                 {country === 'CA' ? 'Province' : 'State'}
               </label>
               <input required value={region} onChange={(e) => setRegion(e.target.value)} className={field} />
@@ -166,13 +153,13 @@ export default function SettingsPage() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold mb-1">
+              <label className="block text-xs font-semibold text-stone-400 mb-1">
                 {country === 'CA' ? 'Postal code' : 'ZIP'}
               </label>
               <input required value={postalCode} onChange={(e) => setPostalCode(e.target.value)} className={field} />
             </div>
             <div>
-              <label className="block text-xs font-semibold mb-1">Country</label>
+              <label className="block text-xs font-semibold text-stone-400 mb-1">Country</label>
               <select
                 value={country}
                 onChange={(e) => setCountry(e.target.value as PhoneCountry)}
@@ -184,11 +171,11 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <hr className="border-stone-100" />
+          <hr className="border-white/10" />
 
           <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">Change password (optional)</p>
           <div>
-            <label className="block text-xs font-semibold mb-1">New password</label>
+            <label className="block text-xs font-semibold text-stone-400 mb-1">New password</label>
             <input
               type="password"
               minLength={6}
@@ -200,7 +187,7 @@ export default function SettingsPage() {
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold mb-1">Confirm new password</label>
+            <label className="block text-xs font-semibold text-stone-400 mb-1">Confirm new password</label>
             <input
               type="password"
               minLength={6}
@@ -212,22 +199,21 @@ export default function SettingsPage() {
           </div>
 
           {error && (
-            <p className="text-sm text-red-700 bg-red-50 border border-red-100 rounded-xl px-3 py-2">{error}</p>
+            <p className="text-sm text-red-300 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2">{error}</p>
           )}
           {message && (
-            <p className="text-sm text-green-800 bg-green-50 border border-green-100 rounded-xl px-3 py-2">{message}</p>
+            <p className="text-sm text-[#c4a574] bg-[#c4a574]/10 border border-[#c4a574]/20 rounded-xl px-3 py-2">{message}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-henna-800 text-white py-3 rounded-xl font-semibold hover:bg-henna-900 disabled:opacity-60"
+            className="w-full bg-[#6f2d14] text-white py-3 rounded-xl font-semibold hover:bg-[#8b3a1a] disabled:opacity-60"
           >
             {loading ? 'Saving…' : 'Save changes'}
           </button>
         </form>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </DashboardShell>
   )
 }
