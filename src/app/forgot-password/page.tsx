@@ -29,6 +29,10 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 max-w-md mx-auto w-full px-5 py-12">
+        <Link href="/" className="ha-back-btn mb-5">
+          ← Back to home
+        </Link>
+
         <div className="bg-white border border-stone-200 rounded-2xl p-7 space-y-5">
           <div>
             <h1 className="text-2xl font-bold">Reset password</h1>
